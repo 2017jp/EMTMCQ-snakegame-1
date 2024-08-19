@@ -3,29 +3,40 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>MCQ Snake Game</title>
-    <link rel="stylesheet" href="styles.css">
+    <title>Snake Game</title>
 </head>
 <body>
-    <div id="start-screen">
-        <h1>Snake MCQ Game</h1>
-        <input type="text" id="player-name" placeholder="Enter your name" required>
+    <div id="nameEntry">
+        <input type="text" id="playerName" placeholder="Enter your name">
         <button onclick="startGame()">Start Game</button>
     </div>
-    <div id="game-screen" style="display: none;">
-        <canvas id="gameCanvas"></canvas>
-        <div id="question-container">
-            <h2 id="question"></h2>
-            <ul id="options">
-                <!-- Options will be dynamically inserted here -->
-            </ul>
-        </div>
+
+    <div id="gamePage" style="display:none;">
+        <!-- Your game canvas or elements go here -->
+        <h1>Welcome to the Snake Game!</h1>
+        <canvas id="snakeGameCanvas"></canvas>
+        <!-- Additional game setup -->
     </div>
-    <div id="game-over-screen" style="display: none;">
-        <h1>GAME OVER</h1>
-        <p id="final-score"></p>
-        <button onclick="window.location.reload();">Play Again</button>
-    </div>
-    <script src="script.js"></script>
+
+    <script>
+        function startGame() {
+            var playerName = document.getElementById('playerName').value;
+            if (playerName) {
+                // Hide the name entry and show the game page
+                document.getElementById('nameEntry').style.display = 'none';
+                document.getElementById('gamePage').style.display = 'block';
+                
+                // Initialize the game
+                initializeGame(playerName);
+            } else {
+                alert("Please enter your name to start the game.");
+            }
+        }
+
+        function initializeGame(playerName) {
+            console.log("Game started for player:", playerName);
+            // Add your game initialization code here
+        }
+    </script>
 </body>
 </html>
