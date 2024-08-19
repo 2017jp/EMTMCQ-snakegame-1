@@ -2,7 +2,6 @@ const canvas = document.getElementById("gameCanvas");
 const ctx = canvas.getContext("2d");
 canvas.width = 400;
 canvas.height = 400;
-
 let snake = [{ x: 10, y: 10 }];
 let snakeLength = 1;
 let direction = { x: 0, y: 0 };
@@ -10,7 +9,6 @@ let food = { x: 15, y: 15, type: "" };
 let score = 0;
 let currentQuestion = 0;
 let playerName = "";
-
 const questions = [
   { q: "What is the unit of electric field?", options: ["Volt", "Tesla", "Newton/Coulomb", "Joule"], answer: 2 },
   { q: "Which law states that the line integral of the magnetic field around any closed loop is equal to μ₀ times the total current enclosed?", options: ["Gauss's Law", "Faraday's Law", "Lenz's Law", "Ampère's Law"], answer: 3 },
@@ -74,17 +72,14 @@ function startGame() {
     loadQuestion();
     gameLoop();
 }
-
 function loadQuestion() {
     shuffleArray(questions);
     const questionObj = questions[currentQuestion];
     document.getElementById("question").innerText = questionObj.q;
     const optionsContainer = document.getElementById("options");
     optionsContainer.innerHTML = "";
-
     const shapes = ["square", "circle", "diamond", "triangle"];
     shuffleArray(shapes);
-
     questionObj.options.forEach((option, index) => {
         const li = document.createElement("li");
         li.classList.add(shapes[index]);
@@ -92,17 +87,14 @@ function loadQuestion() {
         li.innerText = option;
         optionsContainer.appendChild(li);
     });
-
     placeFood(questionObj.answer, shapes);
 }
-
 function placeFood(correctIndex, shapes) {
     const correctShape = shapes[correctIndex];
     const randomX = Math.floor(Math.random() * (canvas.width / 10)) * 10;
     const randomY = Math.floor(Math.random() * (canvas.height / 10)) * 10;
     food = { x: randomX, y: randomY, type: correctShape };
 }
-
 function gameLoop() {
     updateSnake();
     if (isGameOver()) {
@@ -112,11 +104,9 @@ function gameLoop() {
     render();
     setTimeout(gameLoop, 100);
 }
-
 function updateSnake() {
     const head = { x: snake[0].x + direction.x * 10, y: snake[0].y + direction.y * 10 };
     snake.unshift(head);
-
     if (head.x === food.x && head.y === food.y) {
         snakeLength++;
         score++;
@@ -130,17 +120,13 @@ function updateSnake() {
         snake.pop();
     }
 }
-
 function render() {
     ctx.clearRect(0, 0, canvas.width, canvas.height);
-
     ctx.fillStyle = "green";
     snake.forEach(part => ctx.fillRect(part.x, part.y, 10, 10));
-
     ctx.fillStyle = getShapeColor(food.type);
     drawShape(food);
 }
-
 function drawShape(food) {
     const x = food.x + 5;
     const y = food.y + 5;
@@ -170,7 +156,6 @@ function drawShape(food) {
     }
     ctx.restore();
 }
-
 function getShapeColor(shape) {
     switch (shape) {
         case "square":
@@ -183,7 +168,6 @@ function getShapeColor(shape) {
             return "yellow";
     }
 }
-
 function isGameOver() {
     const head = snake[0];
     if (
@@ -197,19 +181,15 @@ function isGameOver() {
     }
     return false;
 }
-
 function endGame(won = false) {
     document.getElementById("game-screen").style.display = "none";
     document.getElementById("game-over-screen").style.display = "block";
     document.getElementById("final-score").innerText = `Score: ${score}`;
-
     updateGoogleSheet(playerName, score);
 }
-
 function updateGoogleSheet(name, score) {
     const url = https://script.google.com/macros/s/AKfycbwBpK8vLV96Dl_ZNWh4R07YONFsvhoO-_efEjevmG9T-hmM4IHEI9n_6tEla9SYAWS7/exec;
     const data = { name: name, score: score };
-
     fetch(url, {
         method: 'POST',
         mode: 'cors',
@@ -226,14 +206,12 @@ function updateGoogleSheet(name, score) {
         console.error('Error:', error);
     });
 }
-
 function shuffleArray(array) {
     for (let i = array.length - 1; i > 0; i--) {
         const j = Math.floor(Math.random() * (i + 1));
         [array[i], array[j]] = [array[j], array[i]];
     }
 }
-
 document.addEventListener("keydown", (e) => {
     switch (e.key) {
         case "ArrowUp":
