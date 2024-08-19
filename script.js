@@ -121,6 +121,7 @@ function updateSnake() {
     }
 }
 function render() {
+    ctx.fillStyle = "black"; // Or any other color
     ctx.clearRect(0, 0, canvas.width, canvas.height);
     ctx.fillStyle = "green";
     snake.forEach(part => ctx.fillRect(part.x, part.y, 10, 10));
