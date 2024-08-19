@@ -60,7 +60,6 @@ const questions = [
   { q: "Which of the following materials is typically used as a dielectric in capacitors?", options: ["Copper", "Iron", "Air", "Aluminum"], answer: 2 },
   { q: "Which physical quantity remains constant for all types of electromagnetic radiation in a vacuum?", options: ["Wavelength", "Frequency", "Speed", "Amplitude"], answer: 2 }
 ];
-
 function startGame() {
     playerName = document.getElementById("player-name").value;
     if (!playerName) {
@@ -69,6 +68,7 @@ function startGame() {
     }
     document.getElementById("start-screen").style.display = "none";
     document.getElementById("game-screen").style.display = "block";
+    console.log("Game Started with player name:", playerName); // Debugging line
     loadQuestion();
     gameLoop();
 }
@@ -188,7 +188,7 @@ function endGame(won = false) {
     updateGoogleSheet(playerName, score);
 }
 function updateGoogleSheet(name, score) {
-    const url = https://script.google.com/macros/s/AKfycbwBpK8vLV96Dl_ZNWh4R07YONFsvhoO-_efEjevmG9T-hmM4IHEI9n_6tEla9SYAWS7/exec;
+    const url = "https://script.google.com/macros/s/AKfycbwBpK8vLV96Dl_ZNWh4R07YONFsvhoO-_efEjevmG9T-hmM4IHEI9n_6tEla9SYAWS7/exec";
     const data = { name: name, score: score };
     fetch(url, {
         method: 'POST',
